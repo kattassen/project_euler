@@ -47,13 +47,12 @@ def euler18():
 
     triangle = triangle15.split("\n")
 
-
     for i, row in enumerate(triangle):
         # Add a new row
         node_list.append([])
-        prv_r = 0
-        prv_l = 0
         for j, col in enumerate(row.split(" ")):
+            prv_r = 0
+            prv_l = 0
             # Add a node previous pointers
             if not i == 0:
                 if not j == 0:
@@ -72,80 +71,28 @@ def euler18():
             if not prv_r == 0:
                 prv_r.nxt_l = node_list[i][j]
 
-    print node_list[14][13].prv_r.nxt_l
-    simplify_tree_1()
-    print node_list[14][13].prv_r.nxt_l
-    simplify_tree_2()
-
     traverse_tree(node_list[0][0], 0)
 
     print paths
     print total
 
 
-def simplify_tree_1():
-    global node_list
-    # Remove a node if the two adjacent nodes has larger value
-    for row in range(14,len(node_list)):
-        for i in range(1,row):
-            if (node_list[row][i].value < node_list[row][i-1].value) and (node_list[row][i].value < node_list[row][i+1].value):
-                print "HJK"
-                node_list[row][i].remove()
-
-
-def simplify_tree_2():
-    global node_list
-    # If not on edge: Remove a node if it has a single parent and a
-    # single child and an adjacent node that has a greater value.
-    for row in range(2,len(node_list)):
-        for i in range(1,row):
-            parent = 0
-            if node_list[row][i].value == 0:
-                continue
-            # Check if only one parent
-            if not node_list[row][i].prv_l == 0 and node_list[row][i].prv_r == 0:
-                    parent = "l"
-            if node_list[row][i].prv_l == 0 and not node_list[row][i].prv_r == 0:
-                    parent = "r"
-            else:
-                continue
-
-            # Check if only one child
-            if (node_list[row][i].nxt_l == 0 and node_list[row][i].nxt_r == 0) or (not node_list[row][i].nxt_l == 0 and not node_list[row][i].nxt_r == 0):
-                continue
-            
-            if parent == "l" and not node_list[row][i].prv_l.nxt_l == 0:
-                if node_list[row][i].value < node_list[row][i].prv_l.nxt_l.value:
-                    print "hjk"
-                    node_list[row][i].remove()
-            elif parent == "r" and not node_list[row][i].prv_r.nxt_r == 0:
-                if node_list[row][i].value < node_list[row][i].prv_r.nxt_r.value:
-#                    print row
-#                    print i
-                    node_list[row][i].remove()
-
-
-
 def traverse_tree(node, tot_sum):
     global paths
     global total
     tot_sum += node.value
-    total = tot_sum
     if node.nxt_l == 0 and node.nxt_r == 0:
         # We are at the bottom
         paths += 1
+        if tot_sum > total:
+            total = tot_sum
         return
 
     if not node.nxt_l == 0:
         traverse_tree(node.nxt_l, tot_sum)
 
     if not node.nxt_r == 0:
-        traverse_tree(node.nxt_r, tot_sum)
-        
-
-    
-    
-    
+        traverse_tree(node.nxt_r, tot_sum)    
 
 
 def main():
