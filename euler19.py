@@ -23,17 +23,16 @@ def euler19():
 #        print week_days[total_days%7] + "  " + str(days)
 
         if week_days[total_days%7] == "Sunday" and days == 1:
-            print "SUNDAY!!!  " + str(year) + "   " + str(month+1)
+#            print "SUNDAY!!!  " + str(year) + "   " + str(month+1)
             sundays += 1
 
 #        print days
 
         if months[month] == days:
-            print "## New month " + str(days+1)
+#            print "## New month " + str(days+1)
             # End of a month
             if year%4 == 0 and month == 1:
-                print "KJLJ"
-                # Add one day because of leapyear
+                 # Add one day because of leapyear
                 total_days += 1
 
             # Increase month with one
@@ -45,7 +44,7 @@ def euler19():
             if month == 12:
                 # End of year, add one to year
                 year += 1
-                print "New Year" + str(year)
+#                print "New Year" + str(year)
 
                 # Reset month
                 month = 0
