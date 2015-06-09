@@ -1,6 +1,6 @@
 import math
 
-target = 100
+target = 500
 primes = [2, 3, 5, 7]
 
 run = True
@@ -32,30 +32,39 @@ while (run):
 		run = False
 print primes
 
-disctinct_no = 3
 numbers = ["0"]*100000000
+numbers = set()
+target_prime = 80
 
-for i,x in enumerate(primes[:20]):
-	for j,y in enumerate(primes[i:20]):
-		for k,z in enumerate(primes[i+j:20]):
-				#if (math.sqrt(x*y) not in primes) or (math.sqrt(z*y) not in primes) or (math.sqrt(z*x) not in primes):
-				if (not x == y) and (not y == z) and (not x == z):
-					print "(%d %d %d)" % (x,y,z)
-					print x*y*z
-					numbers[x*y*z] = "x"
-				elif (x == y) and (y == z) and (x == z):
-					continue
-				else:
-					# Since some of the parts can be set as a power to a prime, try find another factor
-					for q in primes[:20]:
-						#if (math.sqrt(x*q) not in primes) or (math.sqrt(z*q) not in primes) or (math.sqrt(y*q) not in primes):
-						if (not x == q) and (not y == q) and (not z == q):
-							print "(%d %d %d %d)" % (x,y,z,q)
-							print x*y*z*q
-							numbers[x*y*z*q] = "x"
+for i,x in enumerate(primes[:target_prime]):
+	print x
+	for j,y in enumerate(primes[i+1:target_prime]):
+		for k,z in enumerate(primes[i+j+2:target_prime]):
+			for l,u in enumerate(primes[i+j+k+3:target_prime]):
+					for pow_x in range(1,7):
+						for pow_y in range(1,7):
+							for pow_z in range(1,3):
+								for pow_u in range(1,2):
+									numbers.add((x**pow_x)*(y**pow_y)*(z**pow_z)*(u**pow_u))
 
-#print numbers[:1000]
-print numbers[644]
-print numbers[645]
-print numbers[646]
-print "".join(numbers).find("xxx")
+numbers = list(sorted(numbers))
+print "Total numbers found: " + str(len(numbers))
+
+count = 0
+for i,num in enumerate(numbers):
+	if (num - 1 == numbers[i-1]):
+		count += 1
+	else:
+		count = 0
+
+	if count > 3:
+		print (numbers[i-3])
+		print (numbers[i-2])
+		print (numbers[i-1])
+		print (numbers[i])
+		print count
+
+
+#print numbers[644]
+#print numbers[645]
+#print "".join(numbers).find("xxxx")
