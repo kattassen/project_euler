@@ -4,26 +4,24 @@ stop = int(math.sqrt(1929394959697989990))
 
 while (True):
 	p = start**2
+	#print ("fdsfdsfdsfd")
+	
 
-	if (p % 10 == 0):
-		loops = 0
+	found = True
+	if p % 10 == 0:
+		#print p
+		for digit in range(2, 19, 2):
+			#print "   " + str((p / 10**digit) % 10) + "   " + str((20-digit)/2) + "    " + str(digit)
 
-		found = True
-		for i in range(2,18,2):
-			#print "JKJK " + str(p)[i] + "  " + str(i-loops) + "   " + str(loops)
-			if not (str(p)[i] == str(i-loops)):
+			if not ((p / 10**digit) % 10) == (20-digit)/2:			
+				print p / 10**digit
 				found = False
 				break
-			else:
-				print str(p) + "    "+ str(loops)
-				loops += 1
 				
 
-		if (found == True):
+		if found:
 			print p
-			
-
-	if start == stop:
-		break
 
 	start += 1
+	if (start == stop):
+		break
