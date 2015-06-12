@@ -4,20 +4,15 @@ stop = int(math.sqrt(1929394959697989990))
 
 while (True):
 	p = start**2
-	#print ("fdsfdsfdsfd")
-	
 
 	found = True
 	if p % 10 == 0:
-		#print p
-		for digit in range(2, 19, 2):
+		for digit in reversed(range(2, 19, 2)):
 			#print "   " + str((p / 10**digit) % 10) + "   " + str((20-digit)/2) + "    " + str(digit)
 
-			if not ((p / 10**digit) % 10) == (20-digit)/2:			
-				print p / 10**digit
+			if not ((p / 10**digit) % 10) == (20-digit)/2:
 				found = False
 				break
-				
 
 		if found:
 			print p
