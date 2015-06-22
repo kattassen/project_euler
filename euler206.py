@@ -1,6 +1,6 @@
 import math
-start = int(math.sqrt(1020304050607080900))
-stop = int(math.sqrt(1929394959697989990))
+stop = int(math.sqrt(1020304050607080900))
+start = int(math.sqrt(1929394959697989990))
 
 while (True):
 	p = start**2
@@ -17,6 +17,6 @@ while (True):
 		if found:
 			print p
 
-	start += 1
+	start -= 1
 	if (start == stop):
 		break
