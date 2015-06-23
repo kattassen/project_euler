@@ -1,70 +1,65 @@
 import math
+from operator import mul
 
-target = 500
+def prod(list):
+	return reduce(mul, list, 1)
+
+target = 500000
 primes = [2, 3, 5, 7]
 
 run = True
-i = 7
+i = 10
+cons_count = 0
+old_i = 0
+
+
+factors_count = 4
+cons_target = 4
+
+target_prod = prod(primes[:factors_count-1])
+
 while (run):
 	# Get next i
-	i += 1
-
-	#print "I " + str(i)
-
-	if (i % 2 == 0):
-		continue
-
 	is_prime = True
+	i += 1
+	factors = 0
+
+	target_sqrt = math.sqrt(i)
+
 	for x in primes:
-		#print "X " + str(x)
-		if (i % x == 0):
-			is_prime = False
+		power = 0
+		while(True):
+			if (i % x**(power+1) == 0):
+				is_prime = False
+				power += 1
+			else:
+				break
+
+		if (power > 0):
+			#print str(x) + "   " + str(power)
+			factors += 1
+
+		if (x > target_sqrt) and (x > i/target_prod):
 			break
 
-		if (x > math.sqrt(i)):
+	if factors == factors_count:
+		if (i == 1 + old_i):
+			#print "----- " + str (i)
+			cons_count += 1
+
+		if (cons_count == cons_target):
+			for num in range(0,cons_target):
+				print "##### " + str (i-num)
 			break
-	
+	else:
+		cons_count = 0
+
+	old_i = i
+
 	if (is_prime):
 		primes.append(i)
 
 	if (i >= target):
 		print "Target reach"
 		run = False
-print primes
-
-numbers = ["0"]*100000000
-numbers = set()
-target_prime = 80
-
-for i,x in enumerate(primes[:target_prime]):
-	print x
-	for j,y in enumerate(primes[i+1:target_prime]):
-		for k,z in enumerate(primes[i+j+2:target_prime]):
-			for l,u in enumerate(primes[i+j+k+3:target_prime]):
-					for pow_x in range(1,7):
-						for pow_y in range(1,7):
-							for pow_z in range(1,3):
-								for pow_u in range(1,2):
-									numbers.add((x**pow_x)*(y**pow_y)*(z**pow_z)*(u**pow_u))
-
-numbers = list(sorted(numbers))
-print "Total numbers found: " + str(len(numbers))
-
-count = 0
-for i,num in enumerate(numbers):
-	if (num - 1 == numbers[i-1]):
-		count += 1
-	else:
-		count = 0
-
-	if count > 3:
-		print (numbers[i-3])
-		print (numbers[i-2])
-		print (numbers[i-1])
-		print (numbers[i])
-		print count
-
-
-#print numbers[644]
-#print numbers[645]
-#print "".join(numbers).find("xxxx")
+#print primes
