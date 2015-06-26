@@ -2,16 +2,8 @@ cipher = [79,59,12,2,79,35,8,28,20,2,3,68,8,9,68,45,0,12,9,67,68,4,7,5,23,27,1,2
 
 key = [0,0,0]
 
-#x = []
 y = []
 z = []
-
-#freq_x = " e*********************************************"
-#freq_y = " heiotaslndwmgfvurcyTb89W.,7XSZ*****************************"
-#freq_z = " etohnirasdglmwcuvpyIf,4bGHQk+++++++++++++++++++++++++"
-
-#freq_y = " ********************************************************"
-#freq_z = " --------------------------------------------------------"
 
 for i,l in enumerate(cipher):
 	if (i % 3 == 0):
@@ -21,47 +13,14 @@ for i,l in enumerate(cipher):
 	else:
 		z.append(l)
 
-#print x
-#print y
-#print z
-
-#x_freq = {}
 y_freq = {}
 z_freq = {}
 
 #Perform frequency analysis
-#for c in x:
-#	x_freq[c] = 100*x.count(c) / float(len(x))
 for c in y:
-	y_freq[c] = 100*y.count(c) / float(len(y))
+	y_freq[c] = y.count(c)
 for c in z:
-	z_freq[c] = 100*z.count(c) / float(len(z))
-
-#import operator
-#print x_freq
-#print y_freq
-#print z_freq
-
-#x_letter = {}
-#y_letter = {}
-#z_letter = {}
-
-#for i, x in enumerate(sorted(x_freq.items(), key=operator.itemgetter(1), reverse=True)):
-#	x_letter[x[0]] = freq_x[i]
-#for i, y in enumerate(sorted(y_freq.items(), key=operator.itemgetter(1), reverse=True)):
-#	y_letter[y[0]] = freq_y[i]
-#for i, z in enumerate(sorted(z_freq.items(), key=operator.itemgetter(1), reverse=True)):
-#	z_letter[z[0]] = freq_z[i]
-
-#ans2 = ""
-
-#for i,c in enumerate(cipher):
-#	if (i % 3 == 0):
-#		ans2 += ans[i]
-#	elif (i % 3 == 1):
-#		ans2 += y_letter[c]
-#	else:
-#		ans2 += z_letter[c]
+	z_freq[c] = z.count(c)
 
 #Assume that the last character is a period
 key[(len(cipher)-1)%3] = cipher[-1] ^ ord('.')
